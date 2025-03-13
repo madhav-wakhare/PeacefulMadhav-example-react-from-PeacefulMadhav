@@ -1,0 +1,27 @@
+name: Dynamic Input Demo
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select environment
+        required: true
+        options:
+          - dev
+          - staging
+          - prod
+          - qa
+      branch:
+        type: string
+        description: Branch name (e.g., main, feature/x)
+        required: true
+        default: main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print inputs
+        run: |
+          echo "Selected Environment: ${{ github.event.inputs.environment }}"
+          echo "Selected Branch: ${{ github.event.inputs.branch }}"
